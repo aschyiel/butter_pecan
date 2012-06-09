@@ -1,6 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
+
+<style type="text/css">
+
+  #id_show_latest
+  {
+    position: absolute;
+    bottom: 50px;
+    right:  50px;
+  }
+
+</style>
+
 <meta charset="UTF-8">
 <title>butter_pecan</title>
 <%= javascript_include_tag "/javascripts/Strip.js" %>
@@ -17,8 +29,20 @@ var handle_document_ready = function() {
   $(image).load(function(){
     var strip = setup_strip( image ); 
     strip.action();
+    window.strip = strip;
   });
   image.src = "media/test_image.jpg"; 
+
+  $('#id_show_latest').bind('click', function() {
+    console.debug( "id_show_latest got clicked!" );
+    //
+    // ie 'http://localhost:3000/home/show_latest.json'
+    //
+    $.getJSON( '<%= show_latest_home_index_path %>', function( data ) {
+      console.debug( "got json data:"+data );
+      strip.load_from_json( data ).action();
+    });
+  }); 
 }
 
 var setup_strip = function( image ) { 
@@ -47,7 +71,13 @@ var setup_strip = function( image ) {
   <div style="position: absolute; top: 50px; left:50px">
     <canvas id="stage" width="600" height="400">html5 canvas isn't!</canvas>
   </div> 
-</body>
+</body> 
+
+<!-- %= button_to "Lastest", 
+  :action => "show_latest_comic" 
+  % -->
+
+<button id="id_show_latest" type="button">Show Latest Comic</button>
 
 </html>
 

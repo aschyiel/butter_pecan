@@ -32,6 +32,21 @@ ButterPecan::Application.routes.draw do
   #     resources :comments, :sales
   #     resource :seller
   #   end
+# resources :home do
+#   member do
+#     get 'get_latest_comic_strip'
+#     get :get_latest_comic_strip
+#   end
+# end
+  resources :home do
+    collection do
+      get 'show_latest'
+    end 
+    member do
+      get 'show_latest'
+    end 
+  end
+
 
   # Sample resource route with more complex sub-resources
   #   resources :products do

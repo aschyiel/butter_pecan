@@ -1,0 +1,43 @@
+http://www.slideshare.net/cowboyd/the-ruby-racer-under-the-hood
+
+cxt = V8::Context.new
+cxt.eval('7 * 6') # => 42
+cxt.eval('Object') # => function Object() { [native code] }
+
+call javascript from ruby
+eval() call js code directly
+
+Square = cxt.eval(<<-JS)
+(function Square(lenght) {
+  this.length = length
+  this.area = function() {
+    return this.length * this.length
+  }
+})
+JS
+
+square = Square.new(10)
+square.area() # => 100
+
+
+call rubycode from javascript
+
+class Dog
+  def bark(times = 1)
+    "woof!" * times
+  end 
+end
+
+cxt['rover'] = Dog.new
+cxt.eval('rover.bark(2)') # => woof!woof!
+
+
+
+call ruby embed classes
+
+cxt['Dog'] = Dog
+cxt.eval(<<-JS)
+dog = new Dog()
+dog.bark(2) // => "woof!woof!"
+JS
+
