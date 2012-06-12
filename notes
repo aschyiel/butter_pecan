@@ -41,3 +41,11 @@ dog = new Dog()
 dog.bark(2) // => "woof!woof!"
 JS
 
+pg is required for heroku
+bundle install --without production
+
+heroku logs
+git push heroku master
+heroku open
+
+
