@@ -40,7 +40,7 @@ var handle_document_ready = function() {
     //
     $.getJSON( '<%= show_latest_home_index_path %>', function( data ) {
       console.debug( "got json data:"+data );
-      strip.load_from_json( data ).action();
+      strip.load_from_json_string( data ).action();
     });
   }); 
 }
