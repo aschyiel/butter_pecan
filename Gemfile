@@ -10,6 +10,9 @@ gem "pg", :group => :production
 gem "sqlite3", '1.3.5', :group => :development
 gem 'therubyracer'
 
+# see https://github.com/sferik/rails_admin
+gem "rails_admin"
+gem 'fastercsv'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -40,3 +43,6 @@ gem 'thin'
 
 # To use debugger
 # gem 'debugger'
+
+
+gem "devise"
