@@ -23,9 +23,18 @@ class HomeController < ApplicationController
   #
   def show_latest
     @comicStrip = ComicStrip.find(:last); 
+    assert { @comicStrip }
     logger.debug "loading comicStrip: #{@comicStrip}";
 #   respond_with( @comicStrip.to_json() );
     respond_with( @comicStrip.content.to_json() );
   end
+
+  #
+  # see http://stackoverflow.com/questions/3264168/how-to-put-assertions-in-ruby-code
+  #
+  def assert( &block ) 
+    raise RuntimeError unless yield;
+  end
+
 
 end

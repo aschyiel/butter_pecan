@@ -48,4 +48,15 @@ heroku logs
 git push heroku master
 heroku open
 
+[uli@zero butter_pecan]$ rails console
+Loading development environment (Rails 3.2.5)
+irb(main):001:0> ComicStrip.find(2).content
+  ComicStrip Load (2.3ms)  SELECT "comic_strips".* FROM "comic_strips" WHERE "comic_strips"."id" = ? LIMIT 1  [["id", 2]]
+  => "{\"title\":\"test #5 title\",\"scenes\":[{\"image\":\"http://data.whicdn.com/images/28004661/28314-my-little-pony-ponies-cartoon-cartoons_thumb.jpg\",\"lines\":[{\"text\":\"scene1: this is a sentence.\"}]},{\"image\":\"http://data.whicdn.com/images/22406409/1307359906084_0_large.gif\",\"lines\":[{\"text\":\"scene2: this is the first sentence.\"},{\"text\":\"scene2: this is the second sentence\"}]},{\"image\":\"http://static.fjcdn.com/pictures/MLP_71e96f_2216427.jpg\",\"lines\":[{\"text\":\"scene3: this is the first sentence.\"},{\"text\":\"scene3: this is the second sentence.\"},{\"text\":\"scene3: this is the third sentence.\"}]}]}"
 
+
+  1.9.2p323 :003 > strip = ComicStrip.find(1)
+    ComicStrip Load (0.3ms)  SELECT "comic_strips".* FROM "comic_strips" WHERE "comic_strips"."id" = ? LIMIT 1  [["id", 1]]
+     => #<ComicStrip id: 1, title: "test", content: "{\"title\":\"test #5 title\",\"scenes\":[{\"image\":\"http:/...", created_at: "2012-06-14 19:52:46", updated_at: "2012-06-14 20:19:31"> 
+     1.9.2p323 :004 > strip.content
+      => "{\"title\":\"test #5 title\",\"scenes\":[{\"image\":\"http://data.whicdn.com/images/28004661/28314-my-little-pony-ponies-cartoon-cartoons_thumb.jpg\",\"lines\":[{\"text\":\"scene1: this is a sentence.\"}]},{\"image\":\"http://data.whicdn.com/images/22406409/1307359906084_0_large.gif\",\"lines\":[{\"text\":\"scene2: this is the first sentence.\"},{\"text\":\"scene2: this is the second sentence\"}]},{\"image\":\"http://fc08.deviantart.net/fs71/f/2012/143/f/d/mmm_delicioso_by_racul-d50v0u4.jpg\",\"lines\":[{\"text\":\"scene3: this is the first sentence.\"},{\"text\":\"scene3: this is the second sentence.\"},{\"text\":\"scene3: this is the third sentence.\"}]}]}"

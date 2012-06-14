@@ -51,6 +51,87 @@ Strip.fn = Strip.prototype = {
       return this;
     },
 
+    /**
+    * @public
+    * Strip.load_from_json
+    *
+    * TODO:does NOT expect npe
+    *
+    * setup our strip configuration from json.
+    * @param data (json)
+    */
+    load_from_json: function( data ) {
+      var strip = this,
+        image, 
+        lines;
+      strip.title = data.title;
+      strip.sequence = strip.newSequence();    
+
+      $.each( data.scenes, function( idx, scene ) {
+        image = new Image();
+        image.src = scene.image;
+        lines = [];
+        $.each( scene.lines, function( idx2, line ) {
+          lines.push( line.text.toString() );
+        });
+        strip.addNewScene( image, lines );
+      });
+      return strip;
+    },
+
+    load_from_json_string: function( s ) {
+      var strip = this;
+      return strip.load_from_json( JSON.parse( s ) );
+    },
+
+    /**
+    * @public
+    * Strip.to_json
+    *
+    * return our strip's current configuration as json.
+    * to be used with rails to persist our state.
+    *
+    * TODO:does NOT expect npe (x2).
+    *
+    * @return json object.
+    */
+    to_json: function() {
+      var data = {},
+        strip = this,
+        scenes = [],
+        lines;
+
+      data.title = strip.title.toString();
+
+      $.each( strip.sequence.scenes, function( idx, scene ) {
+        lines = [];
+        $.each( scene.dialogue.texts, function( idx2, text ) {
+          lines.push( { "text": text.message.toString() } );
+        }); 
+
+        console.debug( "scene:"+scene );
+        console.debug( "scene.shot:"+scene.shot );
+        console.debug( "scene.shot.image:"+scene.shot.image );
+        console.debug( "scene.shot.image.src:"+scene.shot.image.src );
+        console.debug( "lines:"+lines );
+
+        scenes.push( 
+          { 
+            "image": scene.shot.image.src.toString(),
+            "lines": lines
+          }); 
+      });
+
+      data.scenes = scenes;
+  
+      return data;
+    },
+
+    to_json_string: function() {
+      var strip = this;
+      return JSON.stringify( strip.to_json() );
+    },
+
     // (Strip.Sequence) the particular sequence we are representing now.
     sequence: null,
 
@@ -468,8 +549,19 @@ Sequence.fn = Sequence.prototype = {
 
   constructor: Sequence,
 
-  init: function() { 
-    return this;
+  /** Sequence.fn.init */ 
+  init: function( previous_sequence ) { 
+    var seq = this;
+    seq.scenes = [];
+    seq.selected_scene_index = 0;
+    if ( previous_sequence ) {
+      seq.ctx =    previous_sequence.ctx;
+      seq.canvas = previous_sequence.canvas;
+    } else {
+      seq.ctx = null;
+      seq.canvas = null;
+    }
+    return seq;
   },
 
   selected_scene_index: 0, 
