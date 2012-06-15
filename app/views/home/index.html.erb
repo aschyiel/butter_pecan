@@ -4,11 +4,12 @@
 
 <style type="text/css">
 
+  /* assumes canvas 50, 50, and width/height of 600vs400 */
   #id_show_latest
   {
     position: absolute;
-    bottom: 50px;
-    right:  50px;
+    top:    475px;
+    left:   550px;
   }
 
 </style>
@@ -28,7 +29,7 @@ var handle_document_ready = function() {
   var image = new Image();
   $(image).load(function(){
     var strip = setup_strip( image ); 
-    strip.action();
+//  strip.action();
     window.strip = strip;
   });
   image.src = "media/welcome.png"; 
@@ -46,11 +47,11 @@ var handle_document_ready = function() {
 }
 
 var setup_strip = function( image ) { 
-  var strip = new Strip(),
+  var canvas = $('#stage')[0]; 
+  var strip = new Strip( canvas ),
     sequence = strip.newSequence(),
     scene,
-    shot,
-    canvas = $('#stage')[0]; 
+    shot;
 
   shot = strip.newShot();
   shot.setImage( image );
@@ -58,7 +59,11 @@ var setup_strip = function( image ) {
 
   sequence.pushScene( scene );
 
-  strip.setCanvas( canvas ).loadSequence( sequence ); 
+//strip.setCanvas( canvas ).loadSequence( sequence ); 
+  strip.sequence = sequence;
+  strip.sequence.selected_scene_index = 0;  // skip title...
+  strip.sequence.load_current_scene( canvas.getContext('2d') );
+
 
   return strip;
 }
