@@ -12,6 +12,13 @@
     left:   550px;
   }
 
+  #id_blog_snippets
+  {
+    position: absolute;
+    top:   50px;
+    right: 50px;
+  }
+
 </style>
 
 <meta charset="UTF-8">
@@ -76,14 +83,36 @@ var setup_strip = function( image ) {
   <div style="position: absolute; top: 50px; left:50px">
     <canvas id="stage" width="600" height="400">html5 canvas isn't!</canvas>
   </div> 
+
+  <!-- %= button_to "Lastest", 
+    :action => "show_latest_comic" 
+    % -->
+
+  <button id="id_show_latest" type="button">Show Latest Comic</button> 
+  
+  <div id="id_blog_snippets" >
+    <!-- this assumes that there is always at least 1 entry in my blog! good enough for me... -->
+    <table>
+      <tr>
+        <td>blog_entries</td>
+        <td>published</td> 
+      </tr>
+
+      <% @blog_snippets.each do |entry| %>
+      <tr>
+        <td>
+          <%= link_to entry[ :title ].to_s, entry[ :url ] %>
+        </td>
+        <td>
+          <%= link_to entry[ :published ].to_s, entry[ :url ] %>
+        </td> 
+      </tr>
+      <% end %>
+    </table>
+  </div>
+   
+
 </body> 
-
-<!-- %= button_to "Lastest", 
-  :action => "show_latest_comic" 
-  % -->
-
-<button id="id_show_latest" type="button">Show Latest Comic</button>
-
 </html>
 
 
