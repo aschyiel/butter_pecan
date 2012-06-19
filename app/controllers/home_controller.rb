@@ -20,6 +20,7 @@ class HomeController < ApplicationController
   def index 
     logger.debug "..HomeController.index..";
     populate_blog_snippets();
+    @title = 'Home';
   end
 
   #

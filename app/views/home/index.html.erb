@@ -1,6 +1,7 @@
-<!doctype html>
-<html lang="en">
-<head>
+<% provide(:title, @title) %>
+<!-- doctype html -->
+<!-- html lang="en" -->
+<!-- head -->
 
 <style type="text/css">
 
@@ -19,10 +20,17 @@
     right: 50px;
   }
 
+  #id_canvas_div
+  {
+    position: absolute;
+    top: 100 px;
+    left: 50 px;
+  }
+
 </style>
 
-<meta charset="UTF-8">
-<title>butter_pecan</title>
+<!-- meta charset="UTF-8" -->
+<!-- title>butter_pecan</title -->
 <%= javascript_include_tag "/javascripts/Strip.js" %>
 <%= javascript_include_tag "/javascripts/jquery.js" %>
 
@@ -77,11 +85,10 @@ var setup_strip = function( image ) {
 
 </script>
 
-</head>
-<body>
-  <p>Find me in app/views/home/index.html.erb</p>
-  <div style="position: absolute; top: 50px; left:50px">
-    <canvas id="stage" width="600" height="400">html5 canvas isn't!</canvas>
+</!-- head -->
+<!-- body -->
+  <div id="id_canvas_div" >
+    <canvas id="stage" width="600" height="400">Oh snap! butter_pecan requires your browser to support javaScript and html5 canvas in order to properly function!</canvas>
   </div> 
 
   <!-- %= button_to "Lastest", 
@@ -112,7 +119,7 @@ var setup_strip = function( image ) {
   </div>
    
 
-</body> 
-</html>
+<!-- /body --> 
+<!-- /html -->
 
 
