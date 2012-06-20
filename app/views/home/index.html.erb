@@ -1,48 +1,11 @@
+<!--
+* index.html.erb
+* This is the "home" page for butter_pecan and usually shows our latest comic.
+*
+-->
 <% provide(:title, @title) %>
 <% provide(:background_image, @background_image) %>
-<!-- doctype html -->
-<!-- html lang="en" -->
-<!-- head -->
 
-<style type="text/css">
-
-  /* assumes canvas 50, 50, and width/height of 600vs400 */
-  #id_show_latest
-  {
-/*
-*   position: absolute;
-*   top:    475px;
-*   left:   550px;
-*/
-    position: fixed;
-
-  }
-
-  #id_blog_snippets
-  {
-    position: absolute;
-    top:   50px;
-    right: 50px;
-  }
-
-  #id_canvas_div
-  {
-/*
-*   position: absolute;
-*   top: 100 px;
-*   left: 50 px;
-*/
-    position: fixed;
-    top:  50%;
-    left: 50%;
-    margin-left: -300px;
-    margin-top:  -200px;
-  }
-
-</style>
-
-<!-- meta charset="UTF-8" -->
-<!-- title>butter_pecan</title -->
 <%= javascript_include_tag "/javascripts/Strip.js" %>
 <%= javascript_include_tag "/javascripts/jquery.js" %>
 
@@ -56,7 +19,6 @@ var handle_document_ready = function() {
   var image = new Image();
   $(image).load(function(){
     var strip = setup_strip( image ); 
-//  strip.action();
     window.strip = strip;
   });
   image.src = "media/welcome.png"; 
@@ -86,7 +48,6 @@ var setup_strip = function( image ) {
 
   sequence.pushScene( scene );
 
-//strip.setCanvas( canvas ).loadSequence( sequence ); 
   strip.sequence = sequence;
   strip.sequence.selected_scene_index = 0;  // skip title...
   strip.sequence.load_current_scene( canvas.getContext('2d') );
@@ -97,41 +58,48 @@ var setup_strip = function( image ) {
 
 </script>
 
-</!-- head -->
-<!-- body -->
-  <div id="id_canvas_div" >
-    <canvas id="stage" width="600" height="400">Oh snap! butter_pecan requires your browser to support javaScript and html5 canvas in order to properly function!</canvas>
-  </div> 
+<div id="id_canvas_div" >
+  <canvas id="stage" width="600" height="400">Oh snap! butter_pecan requires your browser to support javaScript and html5 canvas in order to properly function!</canvas>
+</div> 
 
-  <!-- %= button_to "Lastest", 
-    :action => "show_latest_comic" 
-    % -->
 
-  <button id="id_show_latest" type="button">Show Latest Comic</button> 
-  
-  <div id="id_blog_snippets" >
-    <!-- this assumes that there is always at least 1 entry in my blog! good enough for me... -->
-    <table>
-      <tr>
-        <td>blog_entries</td>
-        <td>published</td> 
-      </tr>
+<ul class="comicNav" >
+  <li>
+    <button id="id_show_first"    type="button">First</button> 
+  </li>
+  <li>
+    <button id="id_show_previous" type="button">Previous</button> 
+  </li>
+  <li> 
+    <button id="id_show_random"   type="button">Random</button> 
+  </li>
+  <li> 
+    <button id="id_show_next"     type="button">Next</button> 
+  </li>
+  <li> 
+    <button id="id_show_latest"   type="button">Latest</button> 
+  </li>
+</ul>
 
-      <% @blog_snippets.each do |entry| %>
-      <tr>
-        <td>
-          <%= link_to entry[ :title ].to_s, entry[ :url ] %>
-        </td>
-        <td>
-          <%= link_to entry[ :published ].to_s, entry[ :url ] %>
-        </td> 
-      </tr>
-      <% end %>
-    </table>
-  </div>
-   
+<div id="id_blog_snippets" >
+  <!-- this assumes that there is always at least 1 entry in my blog! good enough for me... -->
+  <table>
+    <tr>
+      <td>blog_entries</td>
+      <td>published</td> 
+    </tr>
 
-<!-- /body --> 
-<!-- /html -->
+    <% @blog_snippets.each do |entry| %>
+    <tr>
+      <td>
+        <%= link_to entry[ :title ].to_s, entry[ :url ] %>
+      </td>
+      <td>
+        <%= link_to entry[ :published ].to_s, entry[ :url ] %>
+      </td> 
+    </tr>
+    <% end %>
+  </table>
+</div> 
 
 

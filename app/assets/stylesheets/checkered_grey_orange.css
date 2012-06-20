@@ -14,40 +14,52 @@
 * }
 */
 
-h1
-{ 
+h1 { 
     color: #ff7f00; 
     /* color: #ccffcc; */
 /*  color: #ff7f00; */
 }
 
-p, td, tr, table
-{
+p, td, tr, table {
     color: #cccccc;
 } 
 
 /*
-* see http://halmatferello.com/lab/pure-css-buttons/
+*
+* comic strip navigation controls. 
+* see http://imgs.xkcd.com/static/styles_short_beta.css
 */
-button
-{
+ul.comicNav {
+  padding: 0;
+  list-style-type: none;  /* this removes the "dot" on the list. */
+} 
+ul.comicNav li {
+  display: inline;  /* this makes the list be horizontal instead of vertical. */
+}
+/* highlight our comic navigation buttons on mouse over. */
+ul.comicNav Button:hover {
+  box-shadow:         none;
+  -moz-box-shadow:    none;
+  -webkit-box-shadow: none;
+}
+/* see http://halmatferello.com/lab/pure-css-buttons/ */
+ul.comicNav button {
     font-weight: bold;
     font-size: 16px; 
 
-    /*
-    * color: #ccffcc !important;
-    * background-color: #222222;
-    * border-color: #00dd00;
-    */
-
     color: #cccccc !important;
-    background-color: #222222;
-    border-color: #ff7f00;
+    background-color: #222222; 
+    border-width: 0px;
 
     border-radius:         20px;
     -moz-border-radius:    20px;
     -webkit-border-radius: 20px;
     -khtml-border-radius:  20px;
+} 
+ul.comicNav Button:hover {
+  color: black !important;
+  border-color: #ff7f00;
+  background-color: orange;
 }
 
 </style>
