@@ -1,4 +1,5 @@
 <% provide(:title, @title) %>
+<% provide(:background_image, @background_image) %>
 <!-- doctype html -->
 <!-- html lang="en" -->
 <!-- head -->
@@ -8,9 +9,13 @@
   /* assumes canvas 50, 50, and width/height of 600vs400 */
   #id_show_latest
   {
-    position: absolute;
-    top:    475px;
-    left:   550px;
+/*
+*   position: absolute;
+*   top:    475px;
+*   left:   550px;
+*/
+    position: fixed;
+
   }
 
   #id_blog_snippets
@@ -22,9 +27,16 @@
 
   #id_canvas_div
   {
-    position: absolute;
-    top: 100 px;
-    left: 50 px;
+/*
+*   position: absolute;
+*   top: 100 px;
+*   left: 50 px;
+*/
+    position: fixed;
+    top:  50%;
+    left: 50%;
+    margin-left: -300px;
+    margin-top:  -200px;
   }
 
 </style>

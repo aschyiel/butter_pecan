@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <title>[butter_pecan] web-comics by Ulysses Levy: <%= yield(:title) %></title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <!-- %= stylesheet_link_tag    "application", :media => "all" % -->
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <meta charset="UTF-8" >
@@ -10,50 +10,18 @@
     content="An interactive web-comic by Ulysses Levy. Ever so slightly more fun than a power-point slide, and just a tab less painful than a black-eye. Enjoy! butter_pecan updates every tuesday." >
 
   <style>
-    
+
     body 
     {
-      background-color: #444444;
-      background-image: url( 'media/bg_tiles.png' );
-      background-repeat: repeat;
-    }
-
-    h1
-    {
-      /* color: #ccffcc; */
-      color: #ff7f00;
-    }
-
-    p, td, tr, table
-    {
-      color: #cccccc;
+        background-color: #444444;   
+/*      background-image: url( 'media/bg_tiles.png' );  */
+        background-image: url( <%= yield(:background_image) %> );  
+        background-repeat: repeat;
     } 
 
-    /*
-    * see http://halmatferello.com/lab/pure-css-buttons/
-    */
-    button
-    {
-      font-weight: bold;
-      font-size: 16px; 
-
-      /*
-      * color: #ccffcc !important;
-      * background-color: #222222;
-      * border-color: #00dd00;
-      */
-
-      color: #cccccc !important;
-      background-color: #222222;
-      border-color: #ff7f00;
-
-      border-radius:         20px;
-      -moz-border-radius:    20px;
-      -webkit-border-radius: 20px;
-      -khtml-border-radius:  20px;
-    }
-
   </style>
+
+  <%= stylesheet_link_tag "checkered_grey_orange", :media => "all" %> 
 
 </head>
 <body>

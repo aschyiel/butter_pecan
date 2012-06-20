@@ -1,0 +1,56 @@
+<!--
+* checked_grey_orange.css
+* 
+* 
+-->
+<style>
+
+/*
+* body 
+* {
+*     background-color: #444444;   
+*     background-image: url( 'media/bg_tiles.png' );  
+*     background-repeat: repeat;
+* }
+*/
+
+h1
+{ 
+    color: #ff7f00; 
+    /* color: #ccffcc; */
+/*  color: #ff7f00; */
+}
+
+p, td, tr, table
+{
+    color: #cccccc;
+} 
+
+/*
+* see http://halmatferello.com/lab/pure-css-buttons/
+*/
+button
+{
+    font-weight: bold;
+    font-size: 16px; 
+
+    /*
+    * color: #ccffcc !important;
+    * background-color: #222222;
+    * border-color: #00dd00;
+    */
+
+    color: #cccccc !important;
+    background-color: #222222;
+    border-color: #ff7f00;
+
+    border-radius:         20px;
+    -moz-border-radius:    20px;
+    -webkit-border-radius: 20px;
+    -khtml-border-radius:  20px;
+}
+
+</style>
+
+
+
