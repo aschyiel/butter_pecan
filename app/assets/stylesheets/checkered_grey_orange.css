@@ -25,6 +25,24 @@ p, td, tr, table {
 } 
 
 /*
+* blog table entries.
+*/
+table.blog {
+  font-weight: bold;
+  background-color: #222222;
+  border-radius:         20px;
+  -moz-border-radius:    20px;
+  -webkit-border-radius: 20px;
+  -khtml-border-radius:  20px;
+  width: 555px;
+  position: relative;
+  left: 20px; 
+}
+table.blog a {
+  color: #ff7f00;
+}
+
+/*
 *
 * comic strip navigation controls. 
 * see http://imgs.xkcd.com/static/styles_short_beta.css
