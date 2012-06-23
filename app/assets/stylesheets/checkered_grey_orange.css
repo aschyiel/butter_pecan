@@ -3,25 +3,81 @@
 * 
 * 
 -->
-<style>
+<style> 
 
-/*
-* body 
-* {
-*     background-color: #444444;   
-*     background-image: url( 'media/bg_tiles.png' );  
-*     background-repeat: repeat;
-* }
-*/
-
+/* css reset */
+{
+  margin:  0;
+  padding: 0;
+} 
+header, footer, aside, nav, article {
+  display: block;
+} 
+p {
+  padding-bottom: 22px;
+} 
+a, a:visited, a:link, a:active {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+} 
 h1 { 
-    color: #ff7f00; 
-    /* color: #ccffcc; */
-/*  color: #ff7f00; */
+  color: #ff7f00; 
+  font-weight: bold;
+  font-size: 16px;
+} 
+p, td, tr, table {
+  color: #ffcc00;  
 }
 
-p, td, tr, table {
-    color: #cccccc;
+a.siteLogo {
+  display: table-cell;
+}
+
+nav.siteNav {
+  display: table;
+  position: absolute;
+  left: 0;
+  width: 100%; 
+  background-color: #202020;
+} 
+nav.siteNav ul {
+  list-style: none;
+  list-style-type: none;  
+  margin: 0 auto; 
+  padding: 0;
+  width: 100%;
+}
+nav.siteNav ul li {
+  float: left;
+  display: inline-block;  
+}
+nav.siteNav ul li a { 
+  display: block;
+  margin-right: 10px;
+  margin-left: 10px;
+  line-height: 22px;
+  text-align: center;
+  text-decoration: none;
+  color: #cccccc;
+  font-weight: bold;
+  font-size: 18px;
+  outline: 0;
+  position: relative;
+  top: -6px;
+} 
+nav.siteNav ul li a:hover {
+  color: #ffcc00;
+  text-decoration: underline;
+} 
+
+
+div.siteDescription {
+  overflow: hidden;
+}
+div.siteDescription h1, p {
+  display: table-cell;
 } 
 
 /*

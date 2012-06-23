@@ -30,12 +30,52 @@
   <%= stylesheet_link_tag "checkered_grey_orange", :media => "all" %> 
 
 </head>
-<body>
+<body> 
 
-  <h1>butter_pecan webcomics</h1>
-  <p>An interactive web-comic/portfolio site by uly. butter_pecan updates every tuesday!</p>
+  <nav class="siteNav">
 
-  <%= yield %>
+    <a class="siteLogo" href="<%= root_path %>" >
+      <img src="media/logo_orange.png" alt="butter_pecan site logo" />
+    </a> 
+
+    <ul>
+      <li><%= link_to 'gallery', root_path %><!-- TODO --></li>
+      <li><%= link_to 'archives', root_path %><!-- TODO --></li>
+      <li><%= link_to 'misc', root_path %><!-- TODO --></li>
+      <li><%= link_to 'about', root_path %><!-- TODO --></li>
+    </ul>
+  </nav> 
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <!-- 
+  * 
+  * see http://net.tutsplus.com/tutorials/html-css-techniques/html-5-and-css-3-the-techniques-youll-soon-be-using/ 
+  *
+  --> 
+  <header> 
+
+    <div class="siteDescription" > 
+      <h1>butter_pecan webcomics</h1>
+      <p>, by ulysses levy; butter_pecan updates on tuesdays.</p>
+    </div> 
+
+  </header> 
+
+  <!-- "main" -->
+  <section>
+    <%= yield %>
+  </section> 
+
+  <!-- aside>
+    TODO aside
+  </aside>
+
+  <footer>
+    TODO footer   
+  </footer -->
 
 </body>
 </html>
