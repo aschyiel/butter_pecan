@@ -23,6 +23,9 @@ var handle_document_ready = function() {
   });
   image.src = "media/welcome.png"; 
 
+  //
+  // massive TODO! the below 5 listeners all look way too similar...
+  //
   $('#id_show_latest').bind('click', function() {
     console.debug( "id_show_latest got clicked!" );
     //
@@ -30,30 +33,42 @@ var handle_document_ready = function() {
     //
     $.getJSON( '<%= show_latest_home_index_path %>', function( data ) {
       strip.load_from_json_string( data ).action();
+      refresh_comic_info();
     });
   }); 
   $('#id_show_first').bind('click', function() {
     console.debug( "id_show_latest got clicked!" );
     $.getJSON( '<%= show_first_home_index_path %>', function( data ) {
       strip.load_from_json_string( data ).action();
+      refresh_comic_info();
     });
   }); 
   $('#id_show_random').bind('click', function() {
     $.getJSON( '<%= show_random_home_index_path %>', function( data ) {
       strip.load_from_json_string( data ).action();
+      refresh_comic_info();
     });
   }); 
   $('#id_show_previous').bind('click', function() {
     $.getJSON( '<%= show_previous_home_index_path %>', function( data ) {
       strip.load_from_json_string( data ).action();
+      refresh_comic_info();
     });
   }); 
   $('#id_show_next').bind('click', function() {
     $.getJSON( '<%= show_next_home_index_path %>', function( data ) {
       strip.load_from_json_string( data ).action();
+      refresh_comic_info();
     });
   }); 
 
+}
+
+var refresh_comic_info = function() {
+  $.getJSON( '<%= get_current_comic_info_home_index_path %>', function( data ) {
+    $('#id_comic_title').text( data.comic_title );
+    $('#id_comic_date' ).text( data.comic_date );
+  });
 }
 
 var setup_strip = function( image ) { 
@@ -79,10 +94,16 @@ var setup_strip = function( image ) {
 
 </script>
 
+<div style="display:table" >
+  <p id="id_comic_title" style="display:table-cell; text-align:left; padding-left: 20px; width: 300px;">
+  </p>
+  <p id="id_comic_date" style="display:table-cell; text-align:right; padding-right: 20px; width: 300px">
+  </p>
+</div>
+
 <div id="id_canvas_div" >
   <canvas id="stage" width="600" height="400">Oh snap! butter_pecan requires your browser to support javaScript and html5 canvas in order to properly function!</canvas>
 </div> 
-
 
 <ul class="comicNav" >
   <li>

@@ -40,6 +40,7 @@ ButterPecan::Application.routes.draw do
 # end
   resources :home do
     collection do
+      get 'get_current_comic_info' 
       get 'show_latest'
       get 'show_next'
       get 'show_previous'
@@ -47,6 +48,7 @@ ButterPecan::Application.routes.draw do
       get 'show_random'
     end 
     member do
+      get 'get_current_comic_info' 
       get 'show_latest'
       get 'show_next'
       get 'show_previous'

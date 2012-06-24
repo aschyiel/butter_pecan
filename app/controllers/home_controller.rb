@@ -12,10 +12,26 @@ class HomeController < ApplicationController
 
   # TODO whitelist attributes
 
-  #
-  # methods made we want to make accessible to the view.
-  #
 # helper_method :show_latest_comic 
+
+  #
+  # gets called via ajax from the view,
+  # asking for the current comic's info (based on session).
+  #
+  # see http://www.dzone.com/snippets/date-time-format-ruby
+  #
+  # TODO: is it sloppy to not just include this in addition 
+  # to the comic strip json content in the first place?
+  #
+  def get_current_comic_info
+    assert { session[ :strip_id ] }
+    strip = ComicStrip.find( session[ :strip_id ] );
+    assert { strip }
+    data = {};
+    data[ :comic_title ] = '"'+strip.title+'"';
+    data[ :comic_date ] = strip.created_at.to_time.strftime "%m-%d-%Y";
+    respond_with( data );
+  end 
 
   def index 
     logger.debug "..HomeController.index..";
@@ -30,11 +46,10 @@ class HomeController < ApplicationController
   # (expected to be the first thing the user does).
   #
   def show_latest
-    @comicStrip = ComicStrip.find(:last); 
-    assert { @comicStrip }
-    logger.debug "loading comicStrip id: #{@comicStrip.id}";
-    session[ :strip_id ] = @comicStrip.id;
-    respond_with( @comicStrip.content.to_json() );
+    strip = ComicStrip.find(:last); 
+    assert { strip }
+    session[ :strip_id ] = strip.id;
+    respond_with( strip.content.to_json() );
   end
 
   #
@@ -45,7 +60,6 @@ class HomeController < ApplicationController
     assert { strip }
     logger.debug "loading comicStrip id: #{strip.id}";
     session[ :strip_id ] = strip.id;
-#   @comicStrip = strip;
     respond_with( strip.content.to_json() ); 
   end
 
@@ -67,7 +81,6 @@ class HomeController < ApplicationController
   # 
   def show_next 
     assert { session[ :strip_id ] }
-#   strip = ComicStrip.find( session[ :strip_id ] + 1 ); 
     strip = ComicStrip.where( "id > ?", session[:strip_id] ).first;
     strip = ComicStrip.last unless strip;
     assert { strip } 
@@ -95,7 +108,7 @@ class HomeController < ApplicationController
 #
 private 
 #
-#---------------------------------------------------------------------------
+#--------------------------------------------------------------------------- 
 
   #
   # see http://stackoverflow.com/questions/3264168/how-to-put-assertions-in-ruby-code
