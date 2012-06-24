@@ -1,5 +1,20 @@
 ButterPecan::Application.routes.draw do
+
+  get "pages/gallery" 
+  get "pages/archives" 
+  get "pages/misc" 
+  get "pages/about"
+
   get "home/index"
+
+  #
+  # "main" url shortcuts.
+  #
+  get "home" => "home#index" 
+  get "gallery" =>  "pages#gallery"
+  get "archives" => "pages#archives"
+  get "misc" =>     "pages#misc"
+  get "about" =>    "pages#about"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
