@@ -21,20 +21,74 @@ class HomeController < ApplicationController
     logger.debug "..HomeController.index..";
     populate_blog_snippets();
     @title = 'Home';
-#   @background_image = 'media/bg_tiles.png';
     @background_image = get_background_image();
   end
 
   #
   # show the latest/most-recent comic strip,
   # this gets called by the client via ajax.
+  # (expected to be the first thing the user does).
   #
   def show_latest
     @comicStrip = ComicStrip.find(:last); 
     assert { @comicStrip }
-    logger.debug "loading comicStrip: #{@comicStrip}";
-#   respond_with( @comicStrip.to_json() );
+    logger.debug "loading comicStrip id: #{@comicStrip.id}";
+    session[ :strip_id ] = @comicStrip.id;
     respond_with( @comicStrip.content.to_json() );
+  end
+
+  #
+  # show our first comic.
+  #
+  def show_first
+    strip = ComicStrip.find(:first);
+    assert { strip }
+    logger.debug "loading comicStrip id: #{strip.id}";
+    session[ :strip_id ] = strip.id;
+#   @comicStrip = strip;
+    respond_with( strip.content.to_json() ); 
+  end
+
+  #
+  # show the previous comic based on our session.
+  #
+  def show_previous
+    assert { session[ :strip_id ] }
+    strip = ComicStrip.where( "id < ?", session[:strip_id] ).last;
+    strip = ComicStrip.first unless strip;
+    assert { strip } 
+    session[ :strip_id ] = strip.id;
+    respond_with( strip.content.to_json() );
+  end
+
+  #
+  # show the next comic based on our session.
+  # see http://stackoverflow.com/questions/7394088/rails-get-next-previous-record
+  # 
+  def show_next 
+    assert { session[ :strip_id ] }
+#   strip = ComicStrip.find( session[ :strip_id ] + 1 ); 
+    strip = ComicStrip.where( "id > ?", session[:strip_id] ).first;
+    strip = ComicStrip.last unless strip;
+    assert { strip } 
+    session[ :strip_id ] = strip.id;
+    respond_with( strip.content.to_json() );
+  end
+
+  #
+  # show a random comic.
+  # see http://stackoverflow.com/questions/5342270/rails-3-get-random-record
+  # TODO prevent "dupes".
+  #
+  def show_random
+    current_id = session[ :strip_id ];
+    while true do
+      strip = ComicStrip.offset( rand( ComicStrip.count ) ).first;
+      break unless current_id == strip.id 
+    end
+    assert { strip } 
+    session[ :strip_id ] = strip.id;
+    respond_with( strip.content.to_json() ); 
   end
 
 #---------------------------------------------------------------------------
@@ -71,7 +125,6 @@ private
     end 
     @blog_snippets = li.sort_by{ |it| it[ :published ] }.reverse;   # TODO corner case where 2 entries 
                                                                     # from same day...
-#   logger.debug "@blog_snippets:#{ @blog_snippets }"
   end
  
   #
@@ -87,8 +140,7 @@ private
     link = links.select{ |elem| elem.attribute("title").to_s == title }[0];
     assert { link };
     return link.attribute("href").to_s; 
-  end
-
+  end 
 
   #
   # return the path to a background image.

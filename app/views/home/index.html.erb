@@ -29,10 +29,31 @@ var handle_document_ready = function() {
     // ie 'http://localhost:3000/home/show_latest.json'
     //
     $.getJSON( '<%= show_latest_home_index_path %>', function( data ) {
-      console.debug( "got json data:"+data );
       strip.load_from_json_string( data ).action();
     });
   }); 
+  $('#id_show_first').bind('click', function() {
+    console.debug( "id_show_latest got clicked!" );
+    $.getJSON( '<%= show_first_home_index_path %>', function( data ) {
+      strip.load_from_json_string( data ).action();
+    });
+  }); 
+  $('#id_show_random').bind('click', function() {
+    $.getJSON( '<%= show_random_home_index_path %>', function( data ) {
+      strip.load_from_json_string( data ).action();
+    });
+  }); 
+  $('#id_show_previous').bind('click', function() {
+    $.getJSON( '<%= show_previous_home_index_path %>', function( data ) {
+      strip.load_from_json_string( data ).action();
+    });
+  }); 
+  $('#id_show_next').bind('click', function() {
+    $.getJSON( '<%= show_next_home_index_path %>', function( data ) {
+      strip.load_from_json_string( data ).action();
+    });
+  }); 
+
 }
 
 var setup_strip = function( image ) { 

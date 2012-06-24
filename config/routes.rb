@@ -41,9 +41,17 @@ ButterPecan::Application.routes.draw do
   resources :home do
     collection do
       get 'show_latest'
+      get 'show_next'
+      get 'show_previous'
+      get 'show_first'
+      get 'show_random'
     end 
     member do
       get 'show_latest'
+      get 'show_next'
+      get 'show_previous'
+      get 'show_first'
+      get 'show_random' 
     end 
   end
 
