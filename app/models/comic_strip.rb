@@ -15,10 +15,10 @@ class ComicStrip < ActiveRecord::Base
   # return a url link to this comic strip.
   #
   def get_my_link()
-#   strip = self;
+    strip = self;
+    return "#{strip.id}";
 #   return "comic/#{strip.id}"; # this utilizes our route magic 
-#                         # to forward us to home/index/:id 
-    return "fake link";
+                          # to forward us to home/index/:id 
   end 
 
   #

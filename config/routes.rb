@@ -88,6 +88,11 @@ ButterPecan::Application.routes.draw do
   #     resources :products
   #   end
 
+  #
+  # allow browsing our webcomics by id
+  #
+  match '(:id)' => 'home#index'
+
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'home#index'

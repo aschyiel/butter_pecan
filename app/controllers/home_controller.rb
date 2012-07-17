@@ -35,9 +35,34 @@ class HomeController < ApplicationController
 
   def index 
     logger.debug "..HomeController.index..";
+
+    logger.debug "params[:id]:#{params[:id]}";
+    #
+    # store our id parameter into our cookie;
+    # we will shortly reclaim this when the client asks for 
+    # which comic we should show via "show_selected".
+    #
+    if ( params && params[:id] )
+        session[ :strip_id ] = params[ :id ];
+    end 
+
     populate_blog_snippets();
     @title = 'Home';
     @background_image = get_background_image();
+  end
+
+  def show_current
+    if ( !session[ :strip_id ] )
+      return respond_width( nil.to_json );
+    end
+
+    strip = ComicStirp.find( session[:strip_id] );
+    if ( !strip )
+      logger.warn( "no comic strip found with id:#{ session[:strip_id] }" );
+      return respond_width( nil.to_json );
+    end
+
+    respond_with( strip.content.to_json() );  
   end
 
   #
