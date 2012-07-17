@@ -95,9 +95,12 @@ class HomeController < ApplicationController
   #
   def show_random
     current_id = session[ :strip_id ];
+    tries = 0;
     while true do
       strip = ComicStrip.offset( rand( ComicStrip.count ) ).first;
       break unless current_id == strip.id 
+      tries += 1;
+      break unless tries < 3
     end
     assert { strip } 
     session[ :strip_id ] = strip.id;
