@@ -1,2 +1,57 @@
-<h1>Pages#archives</h1>
-<p>Find me in app/views/pages/archives.html.erb</p>
+<!--
+*
+* archives.html.erb
+* 
+* This view lists our available comics that user can navigate to.
+*
+-->
+<% provide(:title, "uly's comic archives") %>
+<% provide(:background_image, 'media/bg_tiles.png') %>
+
+<p>
+  Below is a list of my comics in reverse chronological order; 
+  cheers, -uly    
+</p>
+
+
+<div>
+
+  <table>
+
+    <tr>
+      <td>--(no) comic [uploaded]--</td><!-- whoops? -->
+    </tr>
+
+    <% @comic_archives.each do |comic| %>
+    <tr> 
+
+      <!--
+      *
+      * although it is tempting to make everything a link here,
+      * I've read that SEO frowns upon having 100+ links on a single page.
+      * TODO:This can be mitigated via paging.
+      *
+      -->
+      <td>
+        <%= 
+                image_tag(
+                    comic[:image].to_s, 
+                    :height => "24px", 
+                    :width =>  "24px"
+                )
+
+        %> 
+        <%=
+          
+          link_to(
+              "(\##{comic[:number]}) #{comic[:title]} [#{comic[:date]}]", 
+              comic[:link] )
+        %> 
+      </td> 
+
+    </tr>
+    <% end %>
+
+  </table> 
+
+</div>

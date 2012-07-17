@@ -56,20 +56,22 @@ ButterPecan::Application.routes.draw do
   resources :home do
     collection do
       get 'get_current_comic_info' 
+      get 'show_selected'
       get 'show_latest'
       get 'show_next'
       get 'show_previous'
       get 'show_first'
       get 'show_random'
     end 
-    member do
-      get 'get_current_comic_info' 
-      get 'show_latest'
-      get 'show_next'
-      get 'show_previous'
-      get 'show_first'
-      get 'show_random' 
-    end 
+#   member do
+#     get 'get_current_comic_info' 
+#     get 'show_selected'
+#     get 'show_latest'
+#     get 'show_next'
+#     get 'show_previous'
+#     get 'show_first'
+#     get 'show_random' 
+#   end 
   end
 
 
@@ -88,9 +90,16 @@ ButterPecan::Application.routes.draw do
   #     resources :products
   #   end
 
+  #
+  # the below enables the lazy comic id syntax of
+  # http://localhost:3000/2 
+  #
+  match 'comic/(:id)' => 'home#index'
+
+
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'home#index'
+  root :to => 'home#index' 
 
   # See how all your routes lay out with "rake routes"
 

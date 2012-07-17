@@ -35,9 +35,41 @@ class HomeController < ApplicationController
 
   def index 
     logger.debug "..HomeController.index..";
+    
+    logger.debug "params#{ params }";
+
+    #
+    # store our id parameter into our cookie;
+    # we will shortly reclaim this when the client asks for 
+    # which comic we should show via "show_selected".
+    #
+    if ( params && params[:id] )
+        session[ :strip_id ] = params[ :id ];
+    end
+
     populate_blog_snippets();
     @title = 'Home';
     @background_image = get_background_image();
+  end
+
+  #
+  # show the currently "selected" comic 
+  # based on our session's strip_id set back in "#index".  
+  # Needed for linking from archives and loading the latest when we hit home.
+  #
+  # If our session sucks, we default to showing the latest.
+  #
+  # to be called via ajax.
+  #
+  def show_selected 
+    logger.debug "..HomeController.show_selected..";
+    strip_id = session[ :strip_id ];
+    logger.debug "show_selected, strip_id:#{strip_id}";
+    return show_latest unless session[ :strip_id ]; 
+    strip = ComicStrip.find_by_id( session[ :strip_id ] );
+    return show_latest unless strip; 
+
+    respond_with( strip.content.to_json() );
   end
 
   #
@@ -46,6 +78,7 @@ class HomeController < ApplicationController
   # (expected to be the first thing the user does).
   #
   def show_latest
+    logger.debug "..HomeController.show_latest..";
     strip = ComicStrip.find(:last); 
     assert { strip }
     session[ :strip_id ] = strip.id;
