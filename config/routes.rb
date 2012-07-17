@@ -61,6 +61,7 @@ ButterPecan::Application.routes.draw do
       get 'show_previous'
       get 'show_first'
       get 'show_random'
+      get 'show_current'
     end 
     member do
       get 'get_current_comic_info' 
@@ -69,6 +70,7 @@ ButterPecan::Application.routes.draw do
       get 'show_previous'
       get 'show_first'
       get 'show_random' 
+      get 'show_current' 
     end 
   end
 

@@ -20,6 +20,11 @@ var handle_document_ready = function() {
   $(image).load(function(){
     var strip = setup_strip( image ); 
     window.strip = strip;
+    $.getJSON( '<%= show_current_home_index_path %>', function( data ) {
+      strip.load_from_json_string( data ).action();
+      refresh_comic_info();
+    });
+
   });
   image.src = "media/welcome.png"; 
 

@@ -43,7 +43,9 @@ class HomeController < ApplicationController
     # which comic we should show via "show_selected".
     #
     if ( params && params[:id] )
-        session[ :strip_id ] = params[ :id ];
+      session[ :strip_id ] = params[ :id ];
+    else
+      session[ :strip_id ] = ComicStrip.last.id;
     end 
 
     populate_blog_snippets();
@@ -53,13 +55,18 @@ class HomeController < ApplicationController
 
   def show_current
     if ( !session[ :strip_id ] )
-      return respond_width( nil.to_json );
+      return respond_with( nil.to_json );
     end
 
-    strip = ComicStirp.find( session[:strip_id] );
+    begin
+      strip = ComicStrip.find( session[:strip_id] );
+    rescue
+      strip = nil;
+    end
+
     if ( !strip )
       logger.warn( "no comic strip found with id:#{ session[:strip_id] }" );
-      return respond_width( nil.to_json );
+      return respond_with( nil.to_json );
     end
 
     respond_with( strip.content.to_json() );  
