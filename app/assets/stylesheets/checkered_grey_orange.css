@@ -10,7 +10,7 @@
   margin:  0;
   padding: 0;
 } 
-header, footer, aside, nav, article {
+header, footer, aside, nav, article, p {
   display: block;
 } 
 p {
@@ -31,8 +31,18 @@ p, td, tr, table {
   color: #ffcc00;  
 }
 
+p, h1, h2, li {
+  text-align: left;
+}
+
 a.siteLogo {
   display: table-cell;
+}
+
+a {
+  text-align: center;
+  color: #ff7f00;
+  font-weight: bold;
 }
 
 nav.siteNav {
