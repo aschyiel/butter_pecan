@@ -149,7 +149,10 @@ private
   # see http://stackoverflow.com/questions/3264168/how-to-put-assertions-in-ruby-code
   #
   def assert( &block ) 
-    raise RuntimeError unless yield;
+#   raise RuntimeError unless yield;
+    if ( !yield )
+      logger.warn "assert failed:#{block}"; 
+    end
   end
 
   #
@@ -185,8 +188,8 @@ private
   def get_entry_link( entry )
     title = entry.elements["title"].text.to_s;
     links = entry.elements.each("link"){ |elem| elem };
-    link = links.select{ |elem| elem.attribute("title").to_s == title }[0];
-    assert { link };
+    link = links.select{ |elem| elem.attribute("title").to_s == title }[0]; #TODO:quotes in the blog title will dork this!!!
+    assert { link } 
     return link.attribute("href").to_s; 
   end 
 
