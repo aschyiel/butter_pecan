@@ -6,8 +6,11 @@
 <% provide(:title, @title) %>
 <% provide(:background_image, @background_image) %>
 
-<%= javascript_include_tag "/javascripts/Strip.js" %>
 <%= javascript_include_tag "/javascripts/jquery.js" %>
+<%= javascript_include_tag "/javascripts/underscore.js" %>
+<%= javascript_include_tag "/javascripts/WebAudioHelper.js" %>
+<%= javascript_include_tag "/javascripts/audiophile.js" %>
+<%= javascript_include_tag "/javascripts/strip.js" %>
 
 <script type="text/javascript">
 
@@ -19,6 +22,7 @@ var handle_document_ready = function() {
   var image = new Image();
   $(image).load(function(){
     var strip = setup_strip( image ); 
+    strip.set_audiophile( new Audiophile() );
     window.strip = strip;
     $.getJSON( '<%= show_current_home_index_path %>', function( data ) {
       strip.load_from_json_string( data ).action();
