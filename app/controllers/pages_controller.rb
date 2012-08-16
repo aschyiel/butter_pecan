@@ -1,16 +1,20 @@
 
 class PagesController < ApplicationController
-  def gallery
+  def gallery 
+    setup_view( 'gallery' );
   end
 
   def archives
     @my_comic_archives = lookup_my_comic_archives();
+    setup_view( 'archives' );
   end
 
   def misc
+    setup_view( 'misc' );
   end
 
-  def about
+  def about 
+    setup_view( 'about' );
   end
 
   private
@@ -49,6 +53,11 @@ class PagesController < ApplicationController
     li.sort!{ |a,b| a[ :number ] <=> a[ :number ] };
     li.reverse!;
     return li;
+  end 
+
+  # TODO module
+  def setup_view( title )
+    @title = title;
   end 
 
 end

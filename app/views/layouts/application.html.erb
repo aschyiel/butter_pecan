@@ -13,8 +13,8 @@
 
     body 
     {
-        background-color: #444444;   
-        background-image: url( <%= yield(:background_image) %> );  
+        background-color: <%= ['#444444','#111111', '#000000'].sample %>;   
+        background-image: url( <%= [ 'media/bg_tiles.png', 'media/bg2.png' ].sample %> );  
         background-repeat: repeat;
 
         position: absolute;
@@ -27,7 +27,11 @@
 
   </style>
 
-  <%= stylesheet_link_tag "checkered_grey_orange", :media => "all" %> 
+  <%= stylesheet_link_tag( 
+      [ 'checkered_grey_orange', 'puke_green', 'bleach_white' ].sample, 
+      :media => "all" ) 
+    %> 
+  <!-- %= stylesheet_link_tag "bleach_white", :media => "all" % --> 
 
 </head>
 <body> 

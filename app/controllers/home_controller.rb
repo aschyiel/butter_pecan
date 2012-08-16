@@ -35,6 +35,7 @@ class HomeController < ApplicationController
 
   def index 
     logger.debug "..HomeController.index..";
+    @title = 'Home';
 
     logger.debug "params[:id]:#{params[:id]}";
     #
@@ -49,8 +50,6 @@ class HomeController < ApplicationController
     end 
 
     populate_blog_snippets();
-    @title = 'Home';
-    @background_image = get_background_image();
   end
 
   def show_current
@@ -192,17 +191,5 @@ private
     assert { link } 
     return link.attribute("href").to_s; 
   end 
-
-  #
-  # return the path to a background image.
-  # The ideal is to give a different/random background to the view everytime.
-  # @return string.
-  #
-  def get_background_image()
-    return [
-        'media/bg_tiles.png',
-        'media/bg2.png'
-        ].sample;
-  end
 
 end

@@ -1,0 +1,150 @@
+<!--
+* puke_green.css, uly, aug2012
+-->
+<style> 
+
+/* css reset */
+{
+  margin:  0;
+  padding: 0;
+} 
+header, footer, aside, nav, article, p {
+  display: block;
+} 
+p {
+  padding-bottom: 22px;
+} 
+a, a:visited, a:link, a:active {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+} 
+h1 { 
+  color: #00ff00; 
+  font-weight: bold;
+  font-size: 16px;
+} 
+p, td, tr, table {
+  color: #00cc00;  
+}
+
+p, h1, h2, li {
+  text-align: left;
+}
+
+a.siteLogo {
+  display: table-cell;
+}
+
+a {
+  text-align: center;
+  color: #ccff00;
+  font-weight: bold;
+}
+
+nav.siteNav {
+  display: table;
+  position: absolute;
+  left: 0;
+  width: 100%; 
+  background-color: #000000;
+} 
+nav.siteNav ul {
+  list-style: none;
+  list-style-type: none;  
+  margin: 0 auto; 
+  padding: 0;
+  width: 100%;
+}
+nav.siteNav ul li {
+  float: left;
+  display: inline-block;  
+}
+nav.siteNav ul li a { 
+  display: block;
+  margin-right: 10px;
+  margin-left: 10px;
+  line-height: 22px;
+  text-align: center;
+  text-decoration: none;
+  color: #00cc00;
+  font-weight: bold;
+  font-size: 18px;
+  outline: 0;
+  position: relative;
+  top: -6px;
+} 
+nav.siteNav ul li a:hover {
+  color: #00ff00;
+  text-decoration: underline;
+} 
+
+
+div.siteDescription {
+  overflow: hidden;
+}
+div.siteDescription h1, p {
+  display: table-cell;
+} 
+
+/*
+* blog table entries.
+*/
+table.blog {
+  font-weight: bold;
+  background-color: #000000;
+  border-radius:         20px;
+  -moz-border-radius:    20px;
+  -webkit-border-radius: 20px;
+  -khtml-border-radius:  20px;
+  width: 555px;
+  position: relative;
+  left: 20px; 
+}
+table.blog a {
+  color: #00cc00;
+}
+
+/*
+*
+* comic strip navigation controls. 
+* see http://imgs.xkcd.com/static/styles_short_beta.css
+*/
+ul.comicNav {
+  padding: 0;
+  list-style-type: none;  /* this removes the "dot" on the list. */
+} 
+ul.comicNav li {
+  display: inline;  /* this makes the list be horizontal instead of vertical. */
+}
+/* highlight our comic navigation buttons on mouse over. */
+ul.comicNav Button:hover {
+  box-shadow:         none;
+  -moz-box-shadow:    none;
+  -webkit-box-shadow: none;
+}
+/* see http://halmatferello.com/lab/pure-css-buttons/ */
+ul.comicNav button {
+    font-weight: bold;
+    font-size: 16px; 
+
+    color: #00ff00 !important;
+    background-color: #000000; 
+    border-width: 0px;
+
+    border-radius:         20px;
+    -moz-border-radius:    20px;
+    -webkit-border-radius: 20px;
+    -khtml-border-radius:  20px;
+} 
+ul.comicNav Button:hover {
+  color: black !important;
+  border-color: #00cc00;
+  background-color: orange;
+}
+
+</style>
+
+
+
