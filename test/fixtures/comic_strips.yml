@@ -1,9 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  title: MyString
-  content: MyText
+  title: title1
+  content: json_content1
+  created_at: <%= 14.days.ago.to_s(:db) %>
 
 two:
-  title: MyString
-  content: MyText
+  title: title2
+  content: json_content2
+  created_at: <%= 7.days.ago.to_s(:db) %>
+
+three:
+  title: title3
+  content: json_content3
+  created_at: <%= 6.days.ago.to_s(:db) %>
+

@@ -1,5 +1,7 @@
 ButterPecan::Application.routes.draw do
 
+  get "feeder/rss"
+
   get "pages/gallery" 
   get "pages/archives" 
   get "pages/misc" 
