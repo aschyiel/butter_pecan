@@ -4,23 +4,25 @@ require 'rexml/formatters/pretty'
 
 class FeederController < ApplicationController
 
-  respond_to :xml, :html
+  respond_to :xml; 
 
   #
   # see http://paulsturgess.co.uk/articles/13-creating-an-rss-feed-in-ruby-on-rails
+  # http://guides.rubyonrails.org/layouts_and_rendering.html
   #
   def rss
     strips = ComicStrip.find( :all, 
         :order => "id DESC", 
         :limit => 10 );
-#   render :layout => false;
-    response.headers[ "Content-Type" ] = "application/xml; charset=utf-8";
-#   respond_with( render( :xml => get_rss_xml( strips ) ) ); 
+
     @rss_xml = get_rss_xml( strips ); 
-#   respond_to do |format| 
-#     format.xml { render( :xml => get_rss_xml( strips ) ) };
-#     format.xml { render( :xml => @rss_xml ) };
-#     format.html { render( :xml => @rss_xml ) };
+
+#   respond_with( 
+      render( 
+          :xml => @rss_xml,
+          :content_type => 'application/rss',
+          :layout => false ) 
+#   );
 #   end
   end
 
@@ -35,8 +37,17 @@ class FeederController < ApplicationController
     doc = REXML::Document.new();
     doc << REXML::XMLDecl.new( "1.0", "UTF-8" );
 
+    # the syntax is rexml is kinda stupid...
+    # this closure makes creating a new node with text into a one liner.
+    make_elem = Proc.new do | tag_name, elem_text |
+      elem = REXML::Element.new( tag_name );
+      elem.add_text( REXML::Text.new( elem_text ) ) if elem_text;
+      return elem;
+    end
+
     channel = REXML::Element.new( 'channel' );
-    channel.add_element( 'title', { 'text' => 'butter_pecan' } );
+#   channel.add_element( 'title', { 'text' => 'butter_pecan' } );
+    channel.add_element( make_elem.call( 'title', :butter_pecan ) );
     channel.add_element( 'description', 
         { 'text' => 'an experimental html5 webcomic by Ulysses Levy.' } );
     channel.add_element( 'link', 
