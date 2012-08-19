@@ -17,13 +17,28 @@ class FeederController < ApplicationController
 
     @rss_xml = get_rss_xml( strips ); 
 
-#   respond_with( 
-      render( 
-          :xml => @rss_xml,
-          :content_type => 'application/rss',
-          :layout => false ) 
-#   );
-#   end
+    render( 
+        :xml => @rss_xml,
+        :content_type => 'application/rss',
+        :layout => false ) 
+  end 
+
+  #--------------------------------------------------
+  # 
+  private
+  #
+  #--------------------------------------------------
+
+  def title
+    "butter_pecan"
+  end
+
+  def description
+    return "an experimental html5 webcomic by Ulysses Levy.";
+  end 
+
+  def site_link
+    return url_for( 'http://'+request.host );
   end
 
   #
@@ -39,35 +54,27 @@ class FeederController < ApplicationController
 
     # the syntax is rexml is kinda stupid...
     # this closure makes creating a new node with text into a one liner.
-    make_elem = Proc.new do | tag_name, elem_text |
+    make_elem = lambda do | tag_name, elem_text |
       elem = REXML::Element.new( tag_name );
       elem.add_text( REXML::Text.new( elem_text ) ) if elem_text;
       return elem;
     end
 
     channel = REXML::Element.new( 'channel' );
-#   channel.add_element( 'title', { 'text' => 'butter_pecan' } );
-    channel.add_element( make_elem.call( 'title', :butter_pecan ) );
-    channel.add_element( 'description', 
-        { 'text' => 'an experimental html5 webcomic by Ulysses Levy.' } );
-    channel.add_element( 'link', 
-        { 'text' => url_for( 'http://'+request.host ) } );
-
-#   channel.add_element( 'lastBuildDate', { 'text' => Time.now.to_s } );
-#   channel.add_element( 'pubDate', { 'text' => Time.now.to_s } );
+    channel.add_element( make_elem.call( 'title', feeder.title ) );
+    channel.add_element( make_elem.call( 'description', feeder.description ) );
+    channel.add_element( make_elem.call( 'link', feeder.site_link ) );
+  
+    # TODO lastBuildDate, pubDate
 
     strips.each do |strip|
       item = REXML::Element.new( 'item' );
 
-      item.add_element( 'title', { 'text' => strip.title } );
-      item.add_element( 'description', { 'text' => strip.title } ); # TODO description
-      item.add_element( 'link', { 'text' => 
-          url_for( :only_path => false, 
-              :controller => 'home', 
-              :action =>     'index', 
-              :id =>         strip.id ) } );
-      item.add_element( 'guid', { 'text' => strip.id.to_s } );
-      item.add_element( 'pubDate', { 'text' => strip.created_at.to_s } );
+      item.add_element( make_elem.call( 'title', strip.title ) );
+      item.add_element( make_elem.call( 'description', strip.title ) ); # TODO description
+      item.add_element( make_elem.call( 'link', strip.get_link ) );
+      item.add_element( make_elem.call( 'guid', strip.id.to_s ) );
+      item.add_element( make_elem.call( 'pubDate', strip.created_at.to_s ) );
 
       channel.add_element item;
     end
@@ -78,7 +85,7 @@ class FeederController < ApplicationController
     doc.add( rss );
     xml = []
     formatter = REXML::Formatters::Pretty.new
-    formatter.write( doc, xml );
+    formatter.write( doc, xml );  # note: write to anything supporting "<<" such as array.
     return xml.join("");
   end
 

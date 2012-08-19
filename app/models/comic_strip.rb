@@ -11,14 +11,21 @@ class ComicStrip < ActiveRecord::Base
     return previous.size + 1;
   end
 
+  def get_link()
+    return self.get_my_link();
+  end
+
   #
   # return a url link to this comic strip.
   #
   def get_my_link()
     strip = self;
-    return "#{strip.id}";
-#   return "comic/#{strip.id}"; # this utilizes our route magic 
-                          # to forward us to home/index/:id 
+#   return "#{strip.id}";
+
+    return url_for( :only_path => false, 
+        :controller => 'home', 
+        :action =>     'index', 
+        :id =>         strip.id ) } ); 
   end 
 
   #
