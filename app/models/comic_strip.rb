@@ -9,23 +9,15 @@ class ComicStrip < ActiveRecord::Base
     strip = self; 
     previous = ComicStrip.where( "id < ?", strip.id );  # TODO I'm sure this could be cached for a minor performance boost...
     return previous.size + 1;
-  end
-
-  def get_link()
-    return self.get_my_link();
-  end
+  end 
 
   #
   # return a url link to this comic strip.
+  # TODO: remove this from model, and move to controller..
   #
   def get_my_link()
     strip = self;
-#   return "#{strip.id}";
-
-    return url_for( :only_path => false, 
-        :controller => 'home', 
-        :action =>     'index', 
-        :id =>         strip.id ) } ); 
+    return "#{strip.id}"; 
   end 
 
   #

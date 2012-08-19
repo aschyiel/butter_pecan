@@ -25,8 +25,17 @@ class FeederControllerTest < ActionController::TestCase
     debug "xml - #{ xml }"
     assert xml;
 
-    doc = REXML::Document.new( xml );
+    doc = REXML::Document.new( xml ); 
     assert doc;
+
+    root = doc.root;
+    assert root;
+
+    rss = root.get_elements["rss"];
+    assert rss , "rss is #{rss}";
+    channel = rss.elements["channel"].first;
+    assert channel;
+    assert channel.elements["title"].first.text == "butter_pecan";
 
   end
 

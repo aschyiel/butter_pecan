@@ -7,6 +7,7 @@ class FeederController < ApplicationController
   respond_to :xml; 
   
   #
+  # controller action,
   # setup caching for our site's feeds.
   #
   # refs:
@@ -32,14 +33,8 @@ class FeederController < ApplicationController
         :layout => false ) 
   end 
 
-  #--------------------------------------------------
-  # 
-  private
-  #
-  #--------------------------------------------------
-
   def title
-    "butter_pecan"
+    "butter_pecan comics"
   end
 
   def description
@@ -48,7 +43,19 @@ class FeederController < ApplicationController
 
   def site_link
     return url_for( 'http://'+request.host );
-  end
+  end 
+
+  #
+  # return the url link for viewing a ComicStrip. 
+  # @param strip (ComicStrip).
+  # @return url link (String).
+  #
+  def get_strip_link( strip )
+    return url_for( :only_path => false, 
+        :controller => 'home', 
+        :action =>     'index', 
+        :id =>         strip.id ); 
+  end 
 
   #
   # return the rss xml string representation of some comic strips.
@@ -58,6 +65,7 @@ class FeederController < ApplicationController
   #   http://stackoverflow.com/questions/3883349/rubyonrails-url-for-application-root
   #
   def get_rss_xml( strips )
+    feeder = self;
     doc = REXML::Document.new();
     doc << REXML::XMLDecl.new( "1.0", "UTF-8" );
 
@@ -81,7 +89,7 @@ class FeederController < ApplicationController
 
       item.add_element( make_elem.call( 'title', strip.title ) );
       item.add_element( make_elem.call( 'description', strip.title ) ); # TODO description
-      item.add_element( make_elem.call( 'link', strip.get_link ) );
+      item.add_element( make_elem.call( 'link', feeder.get_strip_link( strip ) ) );
       item.add_element( make_elem.call( 'guid', strip.id.to_s ) );
       item.add_element( make_elem.call( 'pubDate', strip.created_at.to_s ) );
 
