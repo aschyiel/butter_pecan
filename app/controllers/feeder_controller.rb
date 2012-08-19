@@ -5,6 +5,15 @@ require 'rexml/formatters/pretty'
 class FeederController < ApplicationController
 
   respond_to :xml; 
+  
+  #
+  # setup caching for our site's feeds.
+  #
+  # refs:
+  #   https://devcenter.heroku.com/articles/caching-strategies 
+  #   http://guides.rubyonrails.org/caching_with_rails.html
+  #
+  caches_action( :rss, :expires_in => 12.hours );
 
   #
   # see http://paulsturgess.co.uk/articles/13-creating-an-rss-feed-in-ruby-on-rails
