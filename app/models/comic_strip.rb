@@ -1,7 +1,7 @@
 class ComicStrip < ActiveRecord::Base
   attr_accessible :content, :title
 
-  validates( :title, presence: true, uniqueness: { case_sensitive: false } ) 
+  validates( :title, :presence => true, :uniqueness => { :case_sensitive => false } ) 
   #
   # return the relative comic sequence number of this strip.
   # 

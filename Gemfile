@@ -8,7 +8,7 @@ gem 'rails', '3.2.5'
 #gem 'sqlite3-ruby', '1.2.5', :group => :development
 gem "pg", :group => :production
 gem "sqlite3", '1.3.5', :group => :development
-gem 'therubyracer'
+gem 'therubyracer', '0.10.2'
 
 
 # Gems used only for assets and not required
